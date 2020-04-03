@@ -11,11 +11,11 @@ const eventEmitter = new events.EventEmitter();
 //Create a function
 function ShootMotherfuckerShoot() {
     console.log('Shooting that Motherfucker');
+    console.log(this._eventsCount);
 }
 
 //Assign a function to an event via 'eventEmitter.on('EVENTNAME', FUNCTIONNAME)'
 eventEmitter.on('SHOOT', ShootMotherfuckerShoot);
-
 
 var PartOne = "";
 var PartTwo = "";
@@ -28,7 +28,7 @@ const HttpServer = http.createServer((req, res) => {
         case 'Option1':
             //Fire the 'SHOOT' event:
             eventEmitter.emit('SHOOT');
-            fs.readFile("OptionOne.html", function (err, data) {
+            fs.readFile("html/OptionOne.html", function (err, data) {
                 if (err) { console.log("error in middle file") }
                 PartTwo = data;
             });
@@ -36,23 +36,24 @@ const HttpServer = http.createServer((req, res) => {
         case 'Option2':
             //Fire the 'SHOOT' event:
             eventEmitter.emit('SHOOT');
-            fs.readFile("OptionTwo.html", function (err, data) {
+            fs.readFile("html/OptionTwo.html", function (err, data) {
                 if (err) { console.log("error in middle file") }
                 PartTwo = data;
             });
             break;
         default:
             console.log('You Idiot');
-            fs.readFile("Default.html", function (err, data) {
+            eventEmitter.emit('SHOOT');
+            fs.readFile("html/Default.html", function (err, data) {
                 if (err) { console.log("error in middle file") }
                 PartTwo = data;
             });
     }
-    fs.readFile("Top.html", function (err, data) { //reading a file with the function 'readFile' from the 'fs' object will create a callback function, which is the second argument passed to the 'readFile' function which reads the file in parallel to the ongoing commands following this line
+    fs.readFile("html/Top.html", function (err, data) { //reading a file with the function 'readFile' from the 'fs' object will create a callback function, which is the second argument passed to the 'readFile' function which reads the file in parallel to the ongoing commands following this line
         if (err) { console.log("error in top file") }
         PartOne = data;
     });
-    PartThree = fs.readFileSync("Bottom.html"); //reading a file with the function 'readFileSync' of the 'fs' Object will block the further execution of the program
+    PartThree = fs.readFileSync("html/Bottom.html"); //reading a file with the function 'readFileSync' of the 'fs' Object will block the further execution of the program
 
     htmlcode = PartOne + PartTwo + PartThree;
 
