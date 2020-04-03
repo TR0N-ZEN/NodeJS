@@ -9,3 +9,5 @@ function connectionEvent() { console.log('I am connected to my Buddy, his name i
 
 const socket = net.connect(port, host, connectionEvent);
 socket.on('end', () => { console.log('Sorry mate I leave. Love you.'); });
+socket.setEncoding('utf8');
+socket.on('data', (data) => { console.log(data) });

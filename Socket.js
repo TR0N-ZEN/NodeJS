@@ -6,13 +6,12 @@ const hostname = '127.0.0.1';
 const port = 8081;
 
 const server = new net.Server();
-
+var message = 'Hello there. I am Obi Wan Kenobi';
 
 server.on('listening', () => { var x = server.address(); console.log('Waiting or in fancy words: Server listening '); });
-server.on('connection', () => { console.log('Moin Buddy your Connection is established'); });
+server.on('connection', (e) => { console.log('Moin Buddy your Connection is established'); e.write('Hello there') }); //Socket is running
 server.on('close', () => { console.log('Bye Buddy I am closing') });
 
 server.listen(port, hostname);
 
-
-//server.close(); 
+//setTimeout(server.close, 10000);
