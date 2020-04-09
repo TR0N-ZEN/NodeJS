@@ -1,0 +1,99 @@
+﻿:root {
+    --thegreen:#7ABF24;
+    --thehovergreen:#79bf24ab;
+    --thewhite:#ffffff;
+    --theviolet:#BB5E96;
+    --semitransparent:#ffffffef;
+    --milkglass:#ffffff6b;
+}
+
+* {
+    box-sizing:border-box;
+    padding:0;
+    margin:0;
+    border:none;
+    overflow:hidden;
+}
+
+body {
+    color:var(--thewhite);
+    font-family:sans-serif;
+    overflow-wrap:break-word;
+    background-color:var(--thegreen);
+    font-size:4vmin;
+}
+
+.wrapper {
+    width:inherit;
+    padding:5vmin;
+    display:grid;
+    grid-column-gap: 1vmin;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: 1fr;
+    grid-template-areas:
+        "info chat ";
+}
+
+.info {
+    grid-area: info;
+    box-shadow: 1vmin 1vmin 1vmin var(--milkglass);
+    border: 0.5vh solid grey;
+    border-radius: 5px;
+}
+
+.chat {
+    grid-area: chat;
+    height: 70vh;
+    box-shadow: 1vmin 1vmin 1vmin var(--milkglass);
+    border: 0.5vh solid grey;
+    border-radius: 5px;
+    background-color: var(--thehovergreen);
+    text-align: left;
+}
+
+.writebar {
+    height:15vh;
+    width:100vw;
+    position:fixed;
+    bottom:5vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+#form {
+    width: 80vw;
+    height: 70%;
+    box-shadow: 1vmin 1vmin 1vmin var(--milkglass);
+    border: 0.5vh solid grey;
+    border-radius: 5px;
+    background-color: var(--thewhite);
+}
+
+form {
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-flow:row nowrap;
+}
+
+.writebar #form form input {
+    width:80%;
+    height:inherit;
+}
+
+.writebar #form form button {
+    width:20%;
+    height:inherit;
+    display:inline-block;
+    border:none;
+    background-color:var(--thehovergreen);
+    color:var(--thewhite);
+    text-align:center;
+    text-decoration:none;
+    font-size:3vmin;
+}
+
+button:hover {
+    background-color:var(--thegreen);
+}
