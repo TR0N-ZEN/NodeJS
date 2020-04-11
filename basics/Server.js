@@ -6,10 +6,10 @@ const hostname = '127.0.0.1';
 const port = 8081;
 var server = new net.Server();
 server.on('listening', () => { console.log('Server: listening'); } );
-server.on('connection', (e) => {
+server.on('connection', (socket) => {
     console.log('Server: connection established');
-    e.write('Host: connection established');
-    e.on('data', (data) => { console.log('Client: ' + data); e.write('Client: ' + data); }); 
+    socket.write('Host: connection established');
+    socket.on('data', (data) => { console.log('Client: ' + data); socket.write('Client: ' + data); }); 
 });
 server.listen(port, hostname);
 

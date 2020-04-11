@@ -2,9 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\basics",
+    "\\css",
     "\\soket io",
     "\\soket io\\client"
   ],
-  "SelectedNode": "\\soket io\\serverScript.js",
+  "SelectedNode": "\\soket io\\client\\script.js",
   "PreviewInSolutionExplorer": false
 }
