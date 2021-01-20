@@ -19,3 +19,4 @@ var TextInterface = readline.createInterface(
         output: process.stdout
     }
 );
+//unfinished
