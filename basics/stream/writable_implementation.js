@@ -87,22 +87,7 @@ setTimeout(() => {
     console.log(myWritable_instance1.data);
     RCLI.close();
 }, 20000);
-/*
-let readable_stream1 = new stream.Readable();
-var RCLI_1 = readline.createInterface(
-    {
-        input: readable_stream1,
-        output: process.stdout
-    }
-);
-RCLI_1.on("line", (string) => {
-    RCLI_1.write(string, encoding);
-});
-readable_stream1.on("data", (chunk) => {
-    RCLI_1.emit("line", chunk);
-});
 
-readable_stream1.push("hello from readable_stream1");
 
 
 
