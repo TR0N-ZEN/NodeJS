@@ -27,34 +27,39 @@ class myReadable extends stream.Readable {
         this._max = 10;
     }
     _read() {
-        const i = this._index++;
+        let i = this._index++;
         if (i < this._max) {
             const str = String(i);
             const buf = Buffer.from(str, defaultEncoding);
-            this.push(buf);
+            this.push(buf);// triggers instances "data" event;
         }
     }
 }
 
 let myReadable_instance1 = new myReadable();
 var RCLI = readline.createInterface({
-    input: myReadable_instance1,
+    input: myReadable_instance1, //now push(buf) in class myReadable triggers this too
     output: process.stdout
 });
-console.log(RCLI);
+//console.log(RCLI);
 RCLI.write("RCLI up\n");
-RCLI.on("line", (line) => {
-    RCLI.write("RCLI.on('line'): " + line, defaultEncoding);
-    // RCLI.moveCursor(RCLI.output, 0, 1);
-    // RCLI.cursorTo(RCLI.output, 0);
-    console.log(RCLI.line);
-    console.log(RCLI.cursor);
-});
+/*
+RCLI.on("data", (line) => {
+    //RCLI.write(line, defaultEncoding);
+    RCLI.output.write(line, defaultEncoding);
+    readline.moveCursor(RCLI.output, 0, 1);//relative to position before so readline.moveCursor(dx[, dy, ...]);
+    readline.cursorTo(RCLI.output, 0);//absolute position so readline.cursorTo(x[, y, ...]);
+});*/
 //RCLI.write("RCLI ready\n");
 myReadable_instance1.on("data", (chunk) => {
-    RCLI.emit("line", chunk);
+    //console.log("myReadable_instance1.on('data')" + chunk);
+    //RCLI.emit("line", chunk);
 });
 
 
 //myReadable_instance1.push("myReadable_instance1.push()");
 myReadable_instance1.read();
+
+setTimeout(() => {
+    console.log("End");
+},200000);
