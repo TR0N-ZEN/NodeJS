@@ -48,41 +48,41 @@ class myWritable extends stream.Writable {
     }
 }
 
-let myWritable_instance1 = new myWritable({highwatermark, decodeStrings, defaultEncoding, objectMode, emitClose});
+let myWritable_instance1 = new myWritable(options);
+console.log(myWritable_instance1);
+
 
 function loggo() {
-    console.log("myWritable instance has red");
+    console.log("loggo()");
 }
 
-myWritable_instance1.write("LeL", defaultEncoding, loggo);
+
 myWritable_instance1.on("data", (data) => {
-    myWritable_instance1.write(data, defaultEncoding, loggo);
+    myWritable_instance1.write("myWritable_instance1.on('data'): " + data, defaultEncoding, loggo);
 });
 myWritable_instance1.on("line", (line) => {
-    myWritable_instance1.write(line, defaultEncoding, loggo);
+    myWritable_instance1.write("myWritable_instance.on('line'): " + line, defaultEncoding, loggo);
 });
+console.log(myWritable_instance1);
+myWritable_instance1.emit("data", "myWritable_instace1.emit('data')");
+myWritable_instance1.emit("line", "myWritable_instace1.emit('line')");
+
+
+myWritable_instance1.write("myWritable_instance1.write()", defaultEncoding, loggo);
+
 
 var RCLI = readline.createInterface({
     input: process.stdin,
     output: myWritable_instance1
 });
-
 RCLI.on("line", (line) => {
-    RCLI.output.write(line);
-    //write to output
-    //myWritable_instance1.write(data);
-});
-RCLI.on("data", (data) => {
-    RCLI.outoput.write(data);
-    //myWritable_instance1.write(data);
+    RCLI.output.write("RCLI.on('line')" + line, defaultEncoding, loggo);
 });
 RCLI.on("close", () => {
-    RCLI.output.write("Closed RCLI.");
+    RCLI.output.write("RCLI.on('close')");
 });
 
-
-RCLI.output.write("Nothang");
-
+RCLI.output.write("RCLI.output.write()");
 setTimeout(() => {
     console.log(myWritable_instance1.data);
     RCLI.close();
