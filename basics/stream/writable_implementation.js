@@ -31,7 +31,7 @@ class myWritable extends stream.Writable {
         if (encoding === "buffer") {
             chunk = this._decoder.write(chunk);
         }
-        this.data += chunk + "\n";
+        this.data += `${chunk}\n`;
         console.log(chunk);
         callback();
     } 
@@ -39,7 +39,7 @@ class myWritable extends stream.Writable {
         if (encoding === "buffer") { 
             chunk = this._decoder.write(chunk);
         }
-        this.data += chunk + "\n";
+        this.data += `${chunk}\n`;
         callback();
     }
     _final(callback) {
@@ -58,10 +58,10 @@ function loggo() {
 
 
 myWritable_instance1.on("data", (data) => {
-    myWritable_instance1.write("myWritable_instance1.on('data'): " + data, defaultEncoding, loggo);
+    myWritable_instance1.write(`myWritable_instance1.on('data'): ${data}`, defaultEncoding, loggo);
 });
 myWritable_instance1.on("line", (line) => {
-    myWritable_instance1.write("myWritable_instance.on('line'): " + line, defaultEncoding, loggo);
+    myWritable_instance1.write(`myWritable_instance.on('line'):  ${chunk}`, defaultEncoding, loggo);
 });
 console.log(myWritable_instance1);
 myWritable_instance1.emit("data", "myWritable_instace1.emit('data')");
@@ -76,7 +76,7 @@ var RCLI = readline.createInterface({
     output: myWritable_instance1
 });
 RCLI.on("line", (line) => {
-    RCLI.output.write("RCLI.on('line')" + line, defaultEncoding, loggo);
+    RCLI.output.write(`RCLI.on('line') ${line}`, defaultEncoding, loggo);
 });
 RCLI.on("close", () => {
     RCLI.output.write("RCLI.on('close')");

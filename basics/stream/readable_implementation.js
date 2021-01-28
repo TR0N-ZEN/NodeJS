@@ -52,7 +52,7 @@ RCLI.on("data", (line) => {
 });*/
 //RCLI.write("RCLI ready\n");
 myReadable_instance1.on("data", (chunk) => {
-    //console.log("myReadable_instance1.on('data')" + chunk);
+    //console.log("myReadable_instance1.on('data'): ${chunk});
     //RCLI.emit("line", chunk);
 });
 

@@ -8,7 +8,6 @@ const io = new Server({
     transports: ["websocket"],
     cookie: true
 });
-const cluster = require("cluster");
 
 
 const IPaddress = 'localhost';
@@ -19,7 +18,7 @@ io.of
 io.on('connection', function (socket) {
     console.log('a user connected');
     socket.on('ClientMessage', function (message) {
-        console.log('client: ' + message);
+        console.log(`client: ${message}`);
         io.emit('ServerMessage', message);
     });
     socket.on('disconnect', function () {
@@ -28,5 +27,5 @@ io.on('connection', function (socket) {
 });
 
 httpserver.listen(port, IPaddress, function () {
-    console.log( 'Server is listening on ' + IPaddress + ':' + port.toString() );
+    console.log(`Server is listening on ${IPaddress}:${port.toString()}`);
 });
