@@ -4,26 +4,31 @@ const RCLI = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
+
 RCLI.on("line", (string) => {
-    RCLI.write(`Logged fron RCLI.on('line'): ${string}`);
+    RCLI.write(string);
+    console.log();
+    //RCLI.write(`Logged fron RCLI.on('line'): ${string}`);
 });
 
 let a = 10;
 
-function delay(milliseconds) {
+function delay () {
     return new Promise( (resolve) => {
         setTimeout( () => {
             resolve();
-        }, milliseconds);
+        }, 1000);
     });
 }
 
 async function count() {
     for (let i = 0; i < a; i++) {
         await delay(1000);
-        RCLI.write(i);
+        RCLI.emit("line", `i = ${i}`)
+        //RCLI.write(`i = ${i}\n`);
+        //console.log(i);
     }
 }
 
 
-count();
+await count();
