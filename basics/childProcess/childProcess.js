@@ -1,4 +1,6 @@
-const { spawn } = require('child_process');
+const child_process = require('child_process');
+const inter_process_line = require('readline');
+
 //const count = require('./count_10.js');
 /*
 const ls = spawn('ls', ['-lh', '/home']);
@@ -31,7 +33,7 @@ dir.on('close', (code) => {
 });
 //const counter = require('-/count_100.js'); how does impoting work again???
 
-const cound_doku = spawn('node', [`${process.cwd()}/count_10.js`]);
+const cound_doku = child_process.spawnSync('node', [`${process.cwd()}/count_10.js`]);
 
 cound_doku.on("data", (data) => {
     console.log(`stdout: ${data}`);

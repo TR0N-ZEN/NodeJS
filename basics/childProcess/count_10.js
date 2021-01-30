@@ -21,14 +21,22 @@ function delay () {
     });
 }
 
-async function count() {
+async function count () {
     for (let i = 0; i < a; i++) {
         await delay(1000);
-        RCLI.emit("line", `i = ${i}`)
-        //RCLI.write(`i = ${i}\n`);
-        //console.log(i);
+        RCLI.emit("line", `i = ${i}`);
+        //RCLI.write(`i = ${i}`);
+        //console.log();
+        if (i == a-1) {
+            RCLI.emit("line", `end of loop in async function`);
+        };
     }
 }
 
+count();
 
-await count();
+setTimeout( () => {
+    console.log('Timeout end');
+}, 11000);
+
+console.log("sync end");
