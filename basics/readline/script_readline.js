@@ -4,9 +4,9 @@ const readline = require("readline");
 function delay () {
     return new Promise( (resolve) => {
         setTimeout( () => {
+            console.log("delay end");
             resolve();
-            console.log("\ndelay end");
-        }, 5000);
+        }, 2000);
     });
 }
 
@@ -18,19 +18,21 @@ var RCLI = readline.createInterface({
 //RCLI.setPrompt("Hoy, the fuck are you doing?");
 RCLI.on("line", async (string) => {
     await delay();
+    console.log(string);
     //RCLI.write(`on('line'): ${string}`);
     //RCLI.prompt();
-    let query = "What the heck do you want?";
+    let query = "What the heck do you want?\n";
     RCLI.question(query, (answer) => {
-        RCLI.write(answer);
+        console.log(answer);
     });
 });
 RCLI.on("close", () => {
-    RCLI.write("Closed RCLI.");
+    //console.log(Closing RCLI);
+    RCLI.write("Closing RCLI.");
 });
 
+RCLI.write("Hey can I ask u something?\n");
 
-RCLI.emit("line", "coded event emit 'line'");
 setTimeout( () => {
     RCLI.close();
-}, 20000);
+}, 10000);

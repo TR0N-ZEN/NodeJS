@@ -1,42 +1,24 @@
 const child_process = require('child_process');
 const inter_process_line = require('readline');
 
-//const count = require('./count_10.js');
-/*
-const ls = spawn('ls', ['-lh', '/home']);
-
-
-ls.stdout.on('data', (data) => {
-    console.log(`stdout: ${data}`);
-});
-
-ls.stderr.on('data', (data) => {
-    console.error(`stderr: ${data}`);
-});
-
-ls.on('close', (code) => {
-    console.log(`child process exited with code ${code}`);
-});
-*/
-
-const dir = spawn("dir", []);
+const dir = child_process.spawn("dir", []);
 dir.stdout.on('data', (data) => {
     console.log(`stdout: ${data}`);
 });
 
 dir.stderr.on('data', (data) => {
-    console.error(`stderr: ${data}`);
+    console.error(`child dir: ${data}`);
 });
 
 dir.on('close', (code) => {
-    console.log(`child process exited with code ${code}`);
+    console.log(`child process 'dir' terminates`);
 });
 //const counter = require('-/count_100.js'); how does impoting work again???
 
-const cound_doku = child_process.spawnSync('node', [`${process.cwd()}/count_10.js`]);
+const count_doku = child_process.spawn('node', [`${process.cwd()}/count_10.js`], {shell: true});
 
-cound_doku.on("data", (data) => {
-    console.log(`stdout: ${data}`);
+count_doku.stdout.on("data", (data) => {
+    console.log(`child count_doku: ${data}`);
 });
 
 setTimeout( () => {

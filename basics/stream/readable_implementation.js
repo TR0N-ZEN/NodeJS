@@ -30,36 +30,28 @@ class myReadable extends stream.Readable {
         let i = this._index++;
         if (i < this._max) {
             const str = String(i);
-            const buf = Buffer.from(str, defaultEncoding);
-            this.push(buf);// triggers instances "data" event;
+            console.log(str);
+            //const buf = Buffer.from(str, defaultEncoding);
+            //this.push(buf);// triggers instances "line" event;
         }
     }
 }
 
 let myReadable_instance1 = new myReadable();
 var RCLI = readline.createInterface({
-    input: myReadable_instance1, //now push(buf) in class myReadable triggers this too
+    input: myReadable_instance1, //now push(buf) in class myReadable triggers "line" event on  it
     output: process.stdout
 });
-//console.log(RCLI);
-RCLI.write("RCLI up\n");
-/*
-RCLI.on("data", (line) => {
-    //RCLI.write(line, defaultEncoding);
-    RCLI.output.write(line, defaultEncoding);
-    readline.moveCursor(RCLI.output, 0, 1);//relative to position before so readline.moveCursor(dx[, dy, ...]);
-    readline.cursorTo(RCLI.output, 0);//absolute position so readline.cursorTo(x[, y, ...]);
-});*/
-//RCLI.write("RCLI ready\n");
-myReadable_instance1.on("data", (chunk) => {
-    //console.log("myReadable_instance1.on('data'): ${chunk});
-    //RCLI.emit("line", chunk);
+
+RCLI.write("RCLI up"); //writes to RCLI.output
+RCLI.on("line", (chunk) => { //"line" event is received when readlineInterface.input stream receives an end of the line character (so for example when the userpresses enter or return in TTY (terminal))
+    //console.log(`Received: ${chunk}`);
+    RCLI.write(chunk);
 });
 
-
-//myReadable_instance1.push("myReadable_instance1.push()");
-myReadable_instance1.read();
+myReadable_instance1.read();//pushs something in the readable stream -> see definition of _read() in class myReadable
 
 setTimeout(() => {
+    RCLI.close();
     console.log("End");
-},200000);
+}, 5000);

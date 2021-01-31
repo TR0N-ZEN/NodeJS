@@ -6,9 +6,8 @@ const RCLI = readline.createInterface({
 });
 
 RCLI.on("line", (string) => {
-    RCLI.write(string);
-    console.log();
-    //RCLI.write(`Logged fron RCLI.on('line'): ${string}`);
+    //RCLI.write(string);
+    console.log(string);
 });
 
 let a = 10;
