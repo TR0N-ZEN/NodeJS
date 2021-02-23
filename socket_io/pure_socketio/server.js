@@ -1,11 +1,11 @@
 //const IPaddress = 'localhost';
-//const port = 80;
+const port = 3021;
 
 // const io = require("socket.io")();
 // // or
 // const { Server } = require("socket.io");
 // const io = new Server();
-var io = require('socket.io')(3021, {
+let options = {
     path: "/socket.io",
     serveClient: false,
     connectTimeout:	45000,
@@ -16,7 +16,8 @@ var io = require('socket.io')(3021, {
     allowUpgrades: false,
     wsEngine: "ws",
     cookie: true
-});
+}
+var io = require('socket.io')(port, options); //'options' accessible under 'io.opts'
 /*
 io.on('connection', function (socket) {
     console.log('a user connected');
