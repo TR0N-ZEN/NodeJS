@@ -18,7 +18,7 @@ const count_doku = child_process.spawn('node', [`${process.cwd()}/count_10.js`],
         console.log(`child count_doku: ${data}`);
     });
 
-let childProcess = child_process = spawn('mode', [`${process.cwd()}/childProcess.js`], {shell: true});
+let childProcess = child_process = spawn('node', [`${process.cwd()}/childProcess.js`], {shell: true});
     childProcess.on("message", (message, sendHandle) => {
         console.log(`Child: ${message}`);
     });
