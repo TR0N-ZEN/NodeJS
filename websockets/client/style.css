@@ -1,0 +1,86 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 2vmin;
+}
+html
+{
+    margin: 0;
+    padding: 0;
+}
+input
+{
+    padding:0;
+    font-size: 100%;
+}
+button
+{
+    padding: 0;
+    font-size: 100%;
+}
+body
+{
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 80vw 20vw;
+    grid-template-rows: 10vh 90vh;
+    grid-template-areas:
+        "header header"
+        "chat else";
+    background-color: white;
+    color: black;
+}
+
+.header
+{
+    grid-area: header;
+    font-size: 8vh;
+    color: rgb(4, 71, 228);
+}
+
+.chat
+{
+    grid-area: chat;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    background-color: orange;
+}
+
+.chat > p
+{
+    height: 10%;
+}
+.chat > ul
+{
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    overflow-y: scroll;
+}
+.chat > form
+{
+    display: flex;
+    flex-direction: row;
+    height: 10%;
+    color: white;
+}
+
+.chat > form > input
+{
+    width: 80%;
+}
+.chat > form > button
+{
+    width: 20%;
+}
+
+.else
+{
+    grid-area: else;
+    background-color: rgb(148, 207, 37);
+}
