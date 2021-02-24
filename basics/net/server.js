@@ -13,13 +13,16 @@ let server_options = {
     allowHalfOpen: false,
     pauseOnConnect: false
 };
-var connections = new Set();
-let server_connectionCallback = function(socket) {
+var sockets = new Set();
+let server_connection_Callback = function(socket) {
     console.log("New connection made to this server.");
     connections.add(socket);
     socket.write('Host: connection established');
     socket.on('data', (data) => {
-        if (typeof(data) !== "string") { console.log(`ERROR: Client send data of type ${typeof(data)}.`); }
+        if (typeof(data) !== "string") {
+            console.log(`ERROR: Client send data of type ${typeof(data)}.`);
+            throw `ERROR: Client send data of type ${typeof(line)}.`;
+        }
         else
         {
             //console.log(`Client: ${data}`);
@@ -27,7 +30,7 @@ let server_connectionCallback = function(socket) {
         }
     });
 };
-var server_1 = net.Server(server_options, server_connectionCallback); 
+var server_1 = net.Server(server_options, server_connection_Callback); 
 // server_1.on('listening', () => { console.log('Server: listening'); } );
 // server_1.on('connection', (socket) => {
 //     console.log("New connection made to this server.");
@@ -42,7 +45,7 @@ var server_1 = net.Server(server_options, server_connectionCallback);
 ServerTextInterface.on('line', (line) => {
     if (typeof(line) === "string")
     {
-        for (socket in connections)
+        for (socket in sockets)
         {
             socket.write(line);//sending data as a string
             //let buffer = Buffer.from(line, defaultEncoding)
@@ -67,7 +70,7 @@ let server_listen_options = {
     //writableAll: <boolean>,
     //ipv6Only: <boolean>
 };
-let server_listenCallback = function() {
+let server_listen_Callback = function() {
     console.log(`Server is listening on ${server_listen_options.host} : ${server_listen_options.port}.`);
 };
-server_1.listen(server_listen_options, server_listenCallback);
+server_1.listen(server_listen_options, server_listen_Callback);
