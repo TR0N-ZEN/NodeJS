@@ -44,10 +44,11 @@ ServerTextInterface.on('line', (line) => {
     {
         for (socket in connections)
         {
-            socket.write(line); }//sending data as a string
+            socket.write(line);//sending data as a string
             //let buffer = Buffer.from(line, defaultEncoding)
             //socket.write(buffer);
         }
+    }
     else
     { 
         console.log(`ERROR: ServerTextInterface was feed with data of type ${typeof(line)}.`);
