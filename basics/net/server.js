@@ -1,12 +1,13 @@
 // JavaScript source code
+const { Server } = require('http');
 const net = require('net');
 const readline = require('readline');
 
 //'readline' part
 const defaultEncoding = 'utf8';
-var ServerTextInterface = readline.createInterface({
+let ServerTextInterface = readline.createInterface({
     input: process.stdin,
-    output: process.stout
+    output: process.stdout
 });
 //'net' part
 let server_options = {
@@ -16,21 +17,34 @@ let server_options = {
 var sockets = new Set();
 let server_connection_Callback = function(socket) {
     console.log("New connection made to this server.");
-    connections.add(socket);
+    sockets.add(socket);
+    socket.setEncoding('utf8'); //replaces the Buffer <-> String inbetween conversion
     socket.write('Host: connection established');
     socket.on('data', (data) => {
-        if (typeof(data) !== "string") {
-            console.log(`ERROR: Client send data of type ${typeof(data)}.`);
-            throw `ERROR: Client send data of type ${typeof(line)}.`;
+        if (typeof(data) === "string")
+        {
+            ServerTextInterface.write(`Client: ${data}\n`);
+            //console.log(`Client: ${data}`);
         }
         else
         {
-            //console.log(`Client: ${data}`);
-            ServerTextInterface.output.write(`Client: ${data}`);
+            try 
+            {
+                let decoder = new StringDecoder(defaultEncoding);
+                let data_as_string = decoder.write(data);
+                ServerTextInterface.write(`Client: ${data_as_string}\n`);
+                //console.log(`Host: ${data_as_string}`);
+                //throw `ERROR: Client send data of type ${typeof(line)}.`;
+            }
+            catch(error)
+            {
+                ServerTextInterface.write(error);
+                // console.log(error);
+            }
         }
     });
 };
-var server_1 = net.Server(server_options, server_connection_Callback); 
+let server_1 = net.Server(server_options, server_connection_Callback); 
 // server_1.on('listening', () => { console.log('Server: listening'); } );
 // server_1.on('connection', (socket) => {
 //     console.log("New connection made to this server.");
@@ -45,24 +59,31 @@ var server_1 = net.Server(server_options, server_connection_Callback);
 ServerTextInterface.on('line', (line) => {
     if (typeof(line) === "string")
     {
-        for (socket in sockets)
+        for (let socket of sockets)
         {
             socket.write(line);//sending data as a string
-            //let buffer = Buffer.from(line, defaultEncoding)
-            //socket.write(buffer);
         }
     }
     else
-    { 
-        console.log(`ERROR: ServerTextInterface was feed with data of type ${typeof(line)}.`);
-        throw `ERROR: ServerTextInterface was feed with data of type ${typeof(line)}.`;
-    };
+    {
+        try
+        {
+            let buffer = Buffer.from(line, defaultEncoding);
+            socket.write(buffer);//sending data as a buffer
+            //throw `ERROR: ServerTextInterface was feed with data of type ${typeof(line)}.`;
+        }
+        catch(error)
+        {
+            ServerTextInterface.write(error);
+            //console.log(error);
+        }
+    }
 });
 
 //'net' again
 let server_listen_options = {
     port: 3021, //IPC or TCP server is to be decided depending on what it listens to: a file (-> IPC) or a port (-> TCP)
-    host: "localhost",
+    host: "localhost"//,
     //path: xxx,
     //backlog: xxx,
     //exclusive: <boolean>,
@@ -71,6 +92,7 @@ let server_listen_options = {
     //ipv6Only: <boolean>
 };
 let server_listen_Callback = function() {
-    console.log(`Server is listening on ${server_listen_options.host} : ${server_listen_options.port}.`);
+    ServerTextInterface.write(`Server is listening on ${server_listen_options.host} : ${server_listen_options.port}.`);
+    // console.log(`Server is listening on ${server_listen_options.host} : ${server_listen_options.port}.`);
 };
 server_1.listen(server_listen_options, server_listen_Callback);
