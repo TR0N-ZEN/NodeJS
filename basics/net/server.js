@@ -23,8 +23,8 @@ let server_connection_Callback = function(socket) {
     socket.on('data', (data) => {
         if (typeof(data) === "string")
         {
-            ServerTextInterface.write(`Client: ${data}\n`);
-            //console.log(`Client: ${data}`);
+            //ServerTextInterface.write(`Client: ${data}\n`);
+            console.log(`Client: ${data}`);
         }
         else
         {
@@ -32,14 +32,14 @@ let server_connection_Callback = function(socket) {
             {
                 let decoder = new StringDecoder(defaultEncoding);
                 let data_as_string = decoder.write(data);
-                ServerTextInterface.write(`Client: ${data_as_string}\n`);
-                //console.log(`Host: ${data_as_string}`);
+                //ServerTextInterface.write(`Client: ${data_as_string}\n`);
+                console.log(`Client: ${data_as_string}`);
                 //throw `ERROR: Client send data of type ${typeof(line)}.`;
             }
             catch(error)
             {
-                ServerTextInterface.write(error);
-                // console.log(error);
+                // ServerTextInterface.write(error);
+                console.log(error);
             }
         }
     });
@@ -74,8 +74,8 @@ ServerTextInterface.on('line', (line) => {
         }
         catch(error)
         {
-            ServerTextInterface.write(error);
-            //console.log(error);
+            // ServerTextInterface.write(error);
+            console.log(error);
         }
     }
 });
@@ -92,7 +92,7 @@ let server_listen_options = {
     //ipv6Only: <boolean>
 };
 let server_listen_Callback = function() {
-    ServerTextInterface.write(`Server is listening on ${server_listen_options.host} : ${server_listen_options.port}.`);
-    // console.log(`Server is listening on ${server_listen_options.host} : ${server_listen_options.port}.`);
+    // ServerTextInterface.write(`Server is listening on ${server_listen_options.host} : ${server_listen_options.port}.`);
+    console.log(`Server is listening on ${server_listen_options.host} : ${server_listen_options.port}.`);
 };
 server_1.listen(server_listen_options, server_listen_Callback);

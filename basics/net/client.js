@@ -13,7 +13,7 @@ let ClientTextInterface = readline.createInterface({
 //'net' part
 let socket_options = {
     //fd: <number>,
-    allowHalfOpen: false,
+    allowHalfOpen: false// ,
     //readbale: <boolean>,
     //writable: <boolean>
 };
@@ -22,8 +22,8 @@ let socket = net.Socket(socket_options);
 socket.on('data', (data) => {
     if (typeof(data) === "string")
     {
-        ClientTextInterface.write(`Host: ${data}\n`);
-        //console.log(`Client: ${data}`);
+        // ClientTextInterface.write(`Host: ${data}\n`);
+        console.log(`${data}`);
     }
     else
     {
@@ -31,14 +31,14 @@ socket.on('data', (data) => {
         {
             let decoder = new StringDecoder(defaultEncoding);
             let data_as_string = decoder.write(data);
-            ClientTextInterface.write(`Host: ${data_as_string}\n`);
-            //console.log(`Host: ${data_as_string}`);
+            //ClientTextInterface.write(`Host: ${data_as_string}\n`);
+            console.log(`${data_as_string}`);
             //throw `ERROR: Server send data of type ${typeof(data)}.`;
         }
         catch(error)
         {
-            ClientTextInterface.write(error);
-            // console.log(error);
+            // ClientTextInterface.write(error);
+            console.log(error);
         }
     }
     
@@ -66,7 +66,7 @@ let socket_connect_options = {
     //for both -> read "https://nodejs.org/dist/latest-v14.x/docs/api/net.html#net_socket_connect_options_connectlistener"
 };
 let socket_connect_Callback = (connect_message) => {
-    ClientTextInterface.write(`Connected to remote host.\nHost sends message: ${connect_message}`);
-    // console.log(`Connected to remote host.\nHost sends message: ${connect_message}`);
+    // ClientTextInterface.write(`Connected to remote host.\nHost sends message: ${connect_message}`);
+    console.log(`Connected to remote host.\nHost sends message: ${connect_message}`);
 }
 socket.connect(socket_connect_options, socket_connect_Callback);
