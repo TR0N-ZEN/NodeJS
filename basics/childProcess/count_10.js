@@ -12,7 +12,8 @@ RCLI.on("line", (string) => {
 
 let a = 10;
 
-function delay () {
+function delay ()
+{
     return new Promise( (resolve) => {
         setTimeout( () => {
             resolve();
@@ -20,7 +21,8 @@ function delay () {
     });
 }
 
-async function count () {
+async function count ()
+{
     for (let i = 0; i < a; i++) {
         await delay(1000);
         RCLI.emit("line", `i = ${i}`);

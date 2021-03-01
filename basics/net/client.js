@@ -46,6 +46,8 @@ socket.on('data', (data) => {
 
 //'readline' part again
 ClientTextInterface.on('line', (line) => {
+    readline.clearLine(ClientTextInterface.input),
+    console.log(`Me: ${line}`);
     socket.write(line);
     // let buffer = Buffer.from(line, defaultEncoding)
     // socket.write(buffer);

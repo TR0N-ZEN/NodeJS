@@ -23,7 +23,7 @@ let server_connection_Callback = function(socket) {
     socket.on('data', (data) => {
         if (typeof(data) === "string")
         {
-            //ServerTextInterface.write(`Client: ${data}\n`);
+            // ServerTextInterface.write(`Client: ${data}\n`);
             console.log(`Client: ${data}`);
         }
         else
@@ -32,9 +32,9 @@ let server_connection_Callback = function(socket) {
             {
                 let decoder = new StringDecoder(defaultEncoding);
                 let data_as_string = decoder.write(data);
-                //ServerTextInterface.write(`Client: ${data_as_string}\n`);
+                // ServerTextInterface.write(`Client: ${data_as_string}\n`);
                 console.log(`Client: ${data_as_string}`);
-                //throw `ERROR: Client send data of type ${typeof(line)}.`;
+                // throw `ERROR: Client send data of type ${typeof(line)}.`;
             }
             catch(error)
             {
@@ -61,6 +61,7 @@ ServerTextInterface.on('line', (line) => {
     {
         for (let socket of sockets)
         {
+            console.log(`Me: ${line}`);
             socket.write(line);//sending data as a string
         }
     }
