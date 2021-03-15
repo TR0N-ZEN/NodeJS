@@ -7,7 +7,7 @@ const port = 3021;
 // const io = new Server();
 let options = {
     path: "/socket.io",
-    serveClient: false,
+    serveClient: true,
     connectTimeout:	45000,
     //below are Engine.io options
     pingTimeout: 5000,
